@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+  labels:
+    app: vprodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vprodbpod
+  template:
+    metadata:
+      labels:
+        app: vprodbpod
+    spec:
+      containers:
+        - name: vprodbcontainer
+          image: vprocontainers/vprofiledb
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: vprodb-volume
+          ports:
+            - name: vprodb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: db-pass
+      volumes:
+        - name: vprodb-volume
+          persistentVolumeClaim:
+          claimName: pv-db-claim
+      #Here we need to solve a problem before initializing the db container, the EBS volume which we are creating will by default have a folder or directory name lost+found, this is common in linux and when once the db container goes up it will recognize that there is some data(lost+found) in the storage area(PersistentVolume) and it will not start the db Initialization Process.
+      #In order to avoid this problem we need to deploy a initcontainer(It goes up before db container) in the same pod which will clear the lost+found folder, resolving the issue.
+      #Init container will be removed once it's job is done.
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - name: vprodb-volume
+              mountPath: /var/lib/mysql

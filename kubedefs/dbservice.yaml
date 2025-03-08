@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vprodb
+spec:
+  selector:
+    #matchLables:
+    app: vprodbpod
+  ports:
+    - name: db-port #External traffic listening port name.
+      port: 3306 #Incoming traffic's port ex: http://localhost:3306
+      targetPort: vprodb-port #Db can be accessed at port 3306, incoming traffic at port 3306 are routed to the internal port 3306 via cluster ip.
+      protocol: TCP
+  type: ClusterIP

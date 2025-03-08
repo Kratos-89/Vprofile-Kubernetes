@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-db-claim
+  labels:
+    type: local
+spec:
+  storageClassName: default
+  accessModes:
+    - ReadWriteOnce
+  resource:
+    requests:
+      storage: 3Gi
