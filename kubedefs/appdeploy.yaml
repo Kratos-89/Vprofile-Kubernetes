@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: vproapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vproapp
+  template:
+    metadata:
+      name: vproapp-pod
+      labels:
+        app: vproapp
+    spec:
+      containers:
+        - name: vproapp-container
+          image: vprocontainers/vprofileapp
+          ports:
+            - name: vproapp-port
+              containerPort: 8080
+      # Here we need an init container because we don't need our tomcat pod(app) to be up first without the backend services.
+      # So the job the init container is to ensure that if the backend pods are up and running.
+      # Once everything looks fine, the init conatiners is removed and the creation of tomcat container is initialized.
+      initContainers:
+        - name: init-mydb
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for DataBase to be up!; sleep 2; done",
+            ]
+        - name: init-memcache
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for Memcache to be up!; sleep 2; done",
+            ]
+        - name: init-rmq
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "until nslookup vpromq01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for Rabbit MQ to be up; sleep 2; done",
+            ]

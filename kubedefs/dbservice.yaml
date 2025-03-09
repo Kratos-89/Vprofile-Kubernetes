@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     #matchLables:
-    app: vprodbpod
+    app: vprodb
   ports:
     - name: db-port #External traffic listening port name.
       port: 3306 #Incoming traffic's port ex: http://localhost:3306

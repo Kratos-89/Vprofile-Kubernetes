@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: pv-db-claim
   labels:
-    type: local
+    app: vprodb
 spec:
   storageClassName: default
   accessModes:

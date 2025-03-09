@@ -8,11 +8,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: vprodbpod
+      app: vprodb
   template:
     metadata:
       labels:
-        app: vprodbpod
+        app: vprodb
     spec:
       containers:
         - name: vprodbcontainer

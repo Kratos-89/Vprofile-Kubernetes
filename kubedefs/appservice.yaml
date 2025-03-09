@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vproapp-service
+  labels:
+    app: vproapp
+spec:
+  ports:
+    - name: vproapp-incoming
+      port: 8080
+      targetPort: vproapp-port
+      protocol: TCP
+  selector:
+    app: vproapp #Label of the target pods
+  type: ClusterIP

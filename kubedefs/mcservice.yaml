@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vprocache01
+spec:
+  ports:
+    - name: vpromc-incoming
+      port: 11211 #Listens to incoming traffic at port 11211 ex : http://localhost:11211
+      targetPort: vpromc-port #Routes the incoming traffic at port 11211 to the internal port 11211 or vpromc-port(Refer mcdep.yaml)
+      protocol: TCP
+  selector:
+    app: vpromc #POD label
+  type: ClusterIP

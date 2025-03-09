@@ -1,0 +1,20 @@
+apiVersion: networing,k8s.io/v1
+kind: Ingress
+metadata:
+  name: vpro-ingress
+  #Annotations are extra information that does not affect how kubernetes works but useful for certain tools to perform certain tasks.
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true" #This annotation tells the NGINX Ingress Controller to use regular expressions for routing.
+spec:
+  ingressClassName: nginx
+  rules:
+    - hosts: vprofile.ravin.store
+      http:
+        paths:
+          - path: /
+            pathType: Prefix #Examples of prefix -> /foo, /login, /app ..etc
+            backend:
+              service:
+                name: vproapp-service
+                port:
+                  number: 8080
