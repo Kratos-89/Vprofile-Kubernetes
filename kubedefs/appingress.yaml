@@ -1,4 +1,4 @@
-apiVersion: networing,k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vpro-ingress
@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - hosts: vprofile.ravin.store
+    - host: vprofile.ravin.store
       http:
         paths:
           - path: /

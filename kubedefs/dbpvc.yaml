@@ -8,6 +8,6 @@ spec:
   storageClassName: default
   accessModes:
     - ReadWriteOnce
-  resource:
+  resources:
     requests:
       storage: 3Gi
