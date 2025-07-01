@@ -6,6 +6,8 @@ This project orchestrates the **vProfile** Java web application using **Kubernet
 
 ## Architecture
 
+![Project Architecture](./Images/Architecture.jpeg)
+
 - **Ingress Controller**: Routes traffic from an **Application Load Balancer** to the Tomcat service.
 - **Tomcat Deployment**: Hosts the vProfile Java application.
 - **Microservices**:
