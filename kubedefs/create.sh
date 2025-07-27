@@ -11,6 +11,7 @@ kubectl create -f rmqservice.yaml
 kubectl create -f appdeploy.yaml
 kubectl create -f appservice.yaml.yaml
 kubectl create -f appservice.yaml
+kubectl create -f nginxIngressController.yaml
 kubectl create -f appingress.yaml
 
 

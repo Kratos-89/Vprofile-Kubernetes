@@ -1,6 +1,7 @@
 #!/bin/bash
 
 kubectl delete -f appingress.yaml 
+kubectl delete -f nginxIngressController.yaml
 kubectl delete -f appservice.yaml
 kubectl delete -f appservice.yaml.yaml 
 kubectl delete -f appdeploy.yaml 
