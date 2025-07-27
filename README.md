@@ -18,8 +18,6 @@
 - [Security](#security)
 - [Troubleshooting](#troubleshooting)
 - [Performance Considerations](#performance-considerations)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## 🌟 Overview
 
