@@ -28,8 +28,8 @@ flowchart TD
     end
 
     subgraph Services
-        N[Service: ingress-nginx-controller (LoadBalancer)]
-        O[Service: ingress-nginx-controller-admission (ClusterIP)]
+        N[Service: ingress-nginx-controller - LoadBalancer]
+        O[Service: ingress-nginx-controller-admission - ClusterIP]
     end
 
     subgraph Deployments
